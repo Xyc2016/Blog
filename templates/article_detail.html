@@ -1,0 +1,37 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}
+    文章
+{% endblock %}
+
+{% block body %}
+
+    {#    <input type="text" name="title" value="{{ article.title }}">#}
+    {#    <br>#}
+    {#    <textarea type="text" name="content">#}
+    {#    {{ article.content }}#}
+    {#    </textarea>#}
+    <p>{{ article.title }}</p>
+    <p> {{ article.content }}  </p>
+
+    <form action="{% url 'add_comment' article.id %}" method="post">
+        {% csrf_token %}
+        添加评论<input type="text" name="content">
+        <br>
+        昵称<input type="text" name="author">
+        <input type="submit" value="提交">
+    </form>
+
+    {% for comment in article.articlecomment_set.all %}
+        <p>
+            {{ comment.author }}
+            <br>
+            {{ comment.content }}
+        </p>
+        <br>
+    {% endfor %}
+
+
+
+
+{% endblock %}

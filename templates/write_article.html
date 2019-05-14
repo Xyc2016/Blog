@@ -1,0 +1,18 @@
+{% extends 'management_base.html' %}
+
+{% block title %}
+写文章
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'write_article' %}" method="post">
+        {% csrf_token %}
+        title: <input type="text" name="title">
+        <br>
+        content:  <textarea type="text" name="content"> </textarea>
+        <br>
+        <input type="submit" value="提交">
+    </form>
+
+
+{% endblock %}

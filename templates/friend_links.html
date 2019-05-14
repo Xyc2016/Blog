@@ -1,0 +1,17 @@
+{%  extends 'blog_base.html' %}
+
+{% block title %}
+友情链接
+{% endblock %}
+
+{% block body %}
+
+{% for friend_link in friend_link_list %}
+
+    {{ friend_link.link }}
+    <br>
+
+{% endfor %}
+
+
+{% endblock %}

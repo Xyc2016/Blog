@@ -1,0 +1,15 @@
+{% extends 'blog_backend.html' %}
+
+{% block title %}
+    上传图片
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'upload_photo' %}" method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}
+    留言
+{% endblock %}
+
+{% block body %}
+
+    {% for message in message_list %}
+        {{ message.author }}:{{ message.content }}
+
+        <br>
+    {% endfor %}
+
+    <form action="{% url 'add_message' %}" method="post">
+        {% csrf_token %}
+        添加留言<input type="text" name="content">
+        <br>
+        昵称<input type="text" name="author">
+        <input type="submit" value="提交">
+    </form>
+
+{% endblock %}

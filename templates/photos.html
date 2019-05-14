@@ -1,0 +1,14 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}
+    图片
+{% endblock %}
+
+{% block body %}
+
+    {% for file_name in file_name_list %}
+        <img src="../static/photos/{{ file_name }}" alt="">
+    {% endfor %}
+
+
+{% endblock %}

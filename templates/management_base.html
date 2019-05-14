@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+
+    {% endblock %}</title>
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.css">
+    <script src="../static/Bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+
+
+<div class="container">
+    <h1>
+        <a href="{% url 'blog_backend' %}">
+            博客后台
+        </a>
+    </h1>
+    <a href="{% url 'log_out' %}">
+        登出
+    </a>
+
+    <div class="row">
+
+        <div class="col-sm-3">
+            <a href="{% url 'article_management' %}">文章管理</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'upload_photo' %}">照片管理</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'message_management' %}">留言管理</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'friend_link_management' %}">友情链接管理</a>
+        </div>
+    </div>
+
+    {% block body %}
+
+    {% endblock %}
+
+
+</div>
+
+
+</body>
+</html>

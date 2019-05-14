@@ -1,0 +1,35 @@
+{% extends 'management_base.html' %}
+
+{% block title %}
+    友情链接管理
+{% endblock %}
+
+{% block body %}
+
+    {#    <h6>#}
+    {#        <a href="{% url 'add_friend_link' %}">#}
+    {#            添加友情链接#}
+    {#        </a>#}
+    {#    </h6>#}
+
+    <form action="{% url 'add_friend_link' %}" method="post">
+        {% csrf_token %}
+        添加友情链接: <input type="text" name="friend_link">
+        <br>
+
+        <input type="submit" value="提交">
+    </form>
+
+    {% for friend_link in friend_link_list %}
+        {{ friend_link.link }}
+        <a href="{% url 'friend_link_delete' friend_link.id %}">
+            删除
+        </a>
+
+        <br>
+
+    {% endfor %}
+
+{% endblock %}
+
+

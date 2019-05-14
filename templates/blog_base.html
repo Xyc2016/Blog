@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+
+    {% endblock %}</title>
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.css">
+    <script src="../static/Bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+
+
+<div class="container">
+    <h1>
+        <a href="{% url 'index' %}">
+            博客
+        </a>
+
+    </h1>
+    <a href="{% url 'log_in' %}">
+        登录
+    </a>
+
+
+    <div class="row">
+
+        <div class="col-sm-3">
+            <a href="{% url 'article' %}">文章</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'show_photos' %}">图片</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'messages' %}">留言</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'friend_links' %}">友情链接</a>
+        </div>
+    </div>
+
+    {% block body %}
+
+    {% endblock %}
+
+
+</div>
+
+
+</body>
+</html>

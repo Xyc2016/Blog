@@ -1,0 +1,28 @@
+
+{% extends 'management_base.html' %}
+
+{% block title %}
+博客后台
+{% endblock %}
+
+
+{% block body %}
+
+    <h6>
+        <a href="{% url 'write_article' %}">
+           写文章
+        </a>
+    </h6>
+
+    {% for article in article_list %}
+        {{ article.title }}
+        <a href="{% url 'article_delete' article.id %}">
+        删除
+        </a>
+
+        <br>
+
+    {% endfor %}
+
+
+{% endblock %}
