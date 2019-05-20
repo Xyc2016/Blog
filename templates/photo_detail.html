@@ -1,0 +1,27 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}
+    图片
+{% endblock %}
+
+{% block body %}
+    <img src="../static/photos/{{ photo_name }}" alt="">
+    <br>
+    <form action="{% url 'add_photo_comment' photo_name %}" method="post">
+        {% csrf_token %}
+        作者 <input type="text" name="author">
+        <br>
+      评论内容  <input type="text" name="content">
+        <br>
+        <input type="Submit" value="提交">
+    </form>
+    <br>
+    {% for photo_comment in photo_comment_list %}
+     作者　　   {{ photo_comment.author }}
+        　　<br>
+      评论内容  {{ photo_comment.content }}
+        <br>
+    {% endfor %}
+
+
+{% endblock %}

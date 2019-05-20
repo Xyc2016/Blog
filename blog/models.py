@@ -23,3 +23,8 @@ class ArticleComment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     content = models.TextField()
 
+
+class PhotoComment(models.Model):
+    author = models.TextField()
+    photo_name = models.TextField()
+    content = models.TextField()

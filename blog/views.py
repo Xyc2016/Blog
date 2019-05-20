@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Article, FriendLink, Message, ArticleComment
+from .models import Article, FriendLink, Message, ArticleComment, PhotoComment
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -149,27 +149,68 @@ def friend_links(request):
 
 
 def show_photos(request):
-
     # os.chdir('static/photos')
     # for name in os.listdir():
     #     print(name)
     return render(request, 'photos.html', {
-        'file_name_list': os.listdir('static/photos')
+        'photo_name_list': os.listdir('static/photos')
     })
 
 
 def upload_photo(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST,request.FILES)
+        form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             file = request.FILES['file']
-            with open('static/photos/'+request.POST['title'],'wb+') as destination:
+            with open('static/photos/' + request.POST['title'], 'wb+') as destination:
                 for chunk in file.chunks():
                     destination.write(chunk)
                     print(1)
             return HttpResponseRedirect(reverse('index'))
     else:
         form = UploadFileForm()
-    return render(request,'upload_photo.html',{
-        'form':form
+    return render(request, 'upload_photo.html', {
+        'form': form
     })
+
+
+def photo_detail(request, photo_name):
+    photo_comment_list = PhotoComment.objects.filter(photo_name=photo_name).all()
+    print(photo_comment_list)
+    return render(request, 'photo_detail.html', {
+        'photo_name': photo_name,
+        'photo_comment_list': photo_comment_list,
+    })
+
+
+def add_photo_comment(request, photo_name):
+    photo_comment = PhotoComment()
+    photo_comment.photo_name = photo_name
+
+    photo_comment.content = request.POST['content']
+    photo_comment.author = request.POST['author']
+    photo_comment.save()
+    return HttpResponseRedirect(reverse('show_photos', args=()))
+
+
+personal_information = {
+    'name': '徐玉才',
+    'age': '22',
+    'gender': 'male',
+    'school': 'Yantai University',
+}
+
+
+def personal_info(request):
+    return render(request, 'personal_info.html', personal_information)
+
+
+def personal_info_management(request):
+    if request.method == 'GET':
+        return render(request, 'personal_info_management.html', personal_information)
+    else:
+        personal_information['name'] = request.POST['name']
+        personal_information['age'] = request.POST['age']
+        personal_information['gender'] = request.POST['gender']
+        personal_information['school'] = request.POST['school']
+        return HttpResponseRedirect(reverse('personal_info_management', args=()))

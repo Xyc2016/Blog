@@ -1,0 +1,16 @@
+{% extends 'management_base.html' %}
+
+{% block title %}
+    个人信息管理
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'personal_info_management' %}" method="post">
+        {% csrf_token %}
+        姓名：<input type="text" name="name" value="{{ name }}">
+        年龄：<input type="text" name="age" value="{{ age }}">
+        性别：<input type="text" name="gender" value="{{ gender }}">
+        学校：<input type="text" name="school" value="{{ school }}">
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}

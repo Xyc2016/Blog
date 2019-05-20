@@ -21,6 +21,11 @@ urlpatterns = [
     path('log_out', views.log_out, name='log_out'),
     path('add_comment/<int:article_id>', views.add_comment, name='add_comment'),
     path('friend_links', views.friend_links, name='friend_links'),
-    path('show_photos',views.show_photos,name='show_photos'),
-    path('upload_photo',views.upload_photo,name='upload_photo'),
+    path('show_photos', views.show_photos, name='show_photos'),
+    path('upload_photo', views.upload_photo, name='upload_photo'),
+    path('photo_detail/<str:photo_name>', views.photo_detail, name='photo_detail'),
+    path('add_photo_comment/<str:photo_name>', views.add_photo_comment, name='add_photo_comment'),
+    path('personal_info', views.personal_info, name='personal_info'),
+    path('personal_info_management', views.personal_info_management, name='personal_info_management')
+
 ]

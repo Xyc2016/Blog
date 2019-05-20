@@ -6,8 +6,12 @@
 
 {% block body %}
 
-    {% for file_name in file_name_list %}
-        <img src="../static/photos/{{ file_name }}" alt="">
+    {% for photo_name in photo_name_list %}
+        <a href="{% url 'photo_detail' photo_name %}">
+            <img src="../static/photos/{{ photo_name }}" alt="">
+        </a>
+
+
     {% endfor %}
 
 
