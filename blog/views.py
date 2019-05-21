@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 import os
 from .forms import UploadFileForm
-from Blog.settings import BASE_DIR
 
 
 # Create your views here.
@@ -36,8 +35,8 @@ def article_management(request):
 
 
 @login_required
-def article_delete(request, id):
-    article = Article.objects.get(pk=id)
+def article_delete(request, article_id):
+    article = Article.objects.get(pk=article_id)
     article.delete()
     return HttpResponseRedirect(reverse('article_management', args=()))
 
@@ -51,8 +50,8 @@ def friend_link_management(request):
 
 
 @login_required
-def friend_link_delete(request, id):
-    friend_link = FriendLink.objects.get(pk=id)
+def friend_link_delete(request, friend_link_id):
+    friend_link = FriendLink.objects.get(pk=friend_link_id)
     friend_link.delete()
     return HttpResponseRedirect(reverse('friend_link_management', args=()))
 
@@ -73,8 +72,8 @@ def message_management(request):
 
 
 @login_required
-def message_delete(request, id):
-    message = Message.objects.get(pk=id)
+def message_delete(request, message_id):
+    message = Message.objects.get(pk=message_id)
     message.delete()
     return HttpResponseRedirect(reverse('message_management', args=()))
 
@@ -83,16 +82,14 @@ def index(request):
     return render(request, 'blog_index.html', {})
 
 
-def article(request):
+def articles(request):
     return render(request, 'article.html', {
         'article_list': Article.objects.all()
     })
 
 
-def article_detail(request, id):
-    article = Article.objects.get(pk=id)
-    title = article.title
-    content = article.content
+def article_detail(request, article_id):
+    article = Article.objects.get(pk=article_id)
     return render(request, 'article_detail.html', {
         'article': article
     })
@@ -156,7 +153,7 @@ def show_photos(request):
         'photo_name_list': os.listdir('static/photos')
     })
 
-
+@login_required
 def upload_photo(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -196,15 +193,15 @@ def add_photo_comment(request, photo_name):
 personal_information = {
     'name': '徐玉才',
     'age': '22',
-    'gender': 'male',
-    'school': 'Yantai University',
+    'gender': '男',
+    'school': '烟台大学',
 }
 
 
 def personal_info(request):
     return render(request, 'personal_info.html', personal_information)
 
-
+@login_required
 def personal_info_management(request):
     if request.method == 'GET':
         return render(request, 'personal_info_management.html', personal_information)
